@@ -18,8 +18,16 @@ namespace ft_linear_regression_form
     {
         private readonly ProgrammingLanguage[] array;
         private readonly Point[] arrayPoints;
+        private double xMid;
+        private double yMid;
+        private double sxx;
+        private double sxy;
+        private double syy;
+        private double A;
+        private double B;
         private Graphics graphicsObj;
         private readonly Pen graphPen;
+        private readonly Pen linePen;
         private readonly int maxKm;
         private readonly int maxPrice;
         private double widthDelta;
@@ -30,13 +38,35 @@ namespace ft_linear_regression_form
             InitializeComponent();
             array = ReadFile("./InuptFiles/data.csv");
             arrayPoints = new Point[array.Length];
+            CalcAB();
             maxKm = array.Max(elem => elem.km);
             maxPrice = array.Max(elem => elem.price);
             Init_Form();
             graphicsObj = CreateGraphics();
-            graphPen = new Pen(Color.Red, 5);
+            graphPen = new Pen(Color.Red, 3);
+            linePen = new Pen(Color.Black, 3);
             Paint += Form1_Paint;
             Resize += ResizeHandler;
+        }
+
+        private void CalcAB()
+        {
+            foreach (var elem in array)
+            {
+                xMid += elem.km;
+                yMid += elem.price;
+            }
+            xMid /= array.Length;
+            yMid /= array.Length;
+            foreach (var elem in array)
+            {
+                sxx += (elem.km - xMid) * (elem.km - xMid);
+                syy += (elem.price - yMid) * (elem.price - yMid);
+                sxy += (elem.km -xMid) * (elem.price - yMid);
+            }
+            B = sxy / sxx;
+            A = yMid - B * xMid;
+
         }
 
         private void Init_Form()
@@ -70,6 +100,13 @@ namespace ft_linear_regression_form
         {
             graphicsObj.Clear(Color.White);
             graphicsObj.DrawLines(graphPen, arrayPoints);
+            graphicsObj.DrawLine(linePen, 0, (int)(A * heightDelta), (int) (array[array.Length - 1].km * widthDelta), (int)
+                (Fun(array[array.Length - 1].km) * heightDelta));
+        }
+
+        double Fun(int x)
+        {
+            return A + B * x;
         }
     }
 }
