@@ -28,6 +28,8 @@ namespace ft_linear_regression_form
         private Graphics graphicsObj;
         private readonly Pen graphPen;
         private readonly Pen linePen;
+        private Font myFont;
+        private Brush myBrush;
         private readonly int maxKm;
         private readonly int maxPrice;
         private double widthDelta;
@@ -43,8 +45,11 @@ namespace ft_linear_regression_form
             maxPrice = array.Max(elem => elem.price);
             Init_Form();
             graphicsObj = CreateGraphics();
+            
             graphPen = new Pen(Color.Red, 3);
             linePen = new Pen(Color.Black, 3);
+            myBrush = new SolidBrush(System.Drawing.Color.Red);
+            
             Paint += Form1_Paint;
             Resize += ResizeHandler;
         }
@@ -98,10 +103,12 @@ namespace ft_linear_regression_form
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
+            myFont = new Font("Helvetica", (int)(Width / 40.0), FontStyle.Italic);
             graphicsObj.Clear(Color.White);
             graphicsObj.DrawLines(graphPen, arrayPoints);
             graphicsObj.DrawLine(linePen, 0, (int)(A * heightDelta), (int) (array[array.Length - 1].km * widthDelta), (int)
                 (Fun(array[array.Length - 1].km) * heightDelta));
+            graphicsObj.DrawString($"y = {A} + {B} * x", myFont, myBrush, 30, 30);
         }
 
         double Fun(int x)
