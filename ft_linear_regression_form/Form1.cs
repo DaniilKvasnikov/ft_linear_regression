@@ -25,6 +25,7 @@ namespace ft_linear_regression_form
         private double syy;
         private double A;
         private double B;
+        private double r;
         private Graphics graphicsObj;
         private readonly Pen graphPen;
         private readonly Pen linePen;
@@ -71,7 +72,7 @@ namespace ft_linear_regression_form
             }
             B = sxy / sxx;
             A = yMid - B * xMid;
-
+            r = sxy / Math.Sqrt(sxx * syy);
         }
 
         private void Init_Form()
@@ -109,6 +110,7 @@ namespace ft_linear_regression_form
             graphicsObj.DrawLine(linePen, 0, (int)(A * heightDelta), (int) (array[array.Length - 1].km * widthDelta), (int)
                 (Fun(array[array.Length - 1].km) * heightDelta));
             graphicsObj.DrawString($"y = {A} + {B} * x", myFont, myBrush, 30, 30);
+            graphicsObj.DrawString($"r = {r}", myFont, myBrush, 30, 30 + (int)(Width / 40.0));
         }
 
         double Fun(int x)
