@@ -8,7 +8,7 @@ using CsvHelper;
 
 namespace ft_linear_regression_form
 {
-    public class ProgrammingLanguage
+    public class Data
     {
         public int km { get; set; }
         public int price { get; set; }
@@ -16,7 +16,7 @@ namespace ft_linear_regression_form
 
     public partial class Form1 : Form
     {
-        private readonly ProgrammingLanguage[] array;
+        private readonly Data[] array;
         private readonly Point[] arrayPoints;
         private double xMid;
         private double yMid;
@@ -92,12 +92,12 @@ namespace ft_linear_regression_form
             Form1_Paint(sender, null);
         }
 
-        private ProgrammingLanguage[] ReadFile(string pathCsvFile)
+        private Data[] ReadFile(string pathCsvFile)
         {
             using (var reader = new StreamReader(pathCsvFile))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
-                return csv.GetRecords<ProgrammingLanguage>().OrderBy(e => e.km).ToArray();
+                return csv.GetRecords<Data>().OrderBy(e => e.km).ToArray();
             }
         }
 
