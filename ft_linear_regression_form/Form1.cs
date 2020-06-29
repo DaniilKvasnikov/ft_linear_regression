@@ -110,13 +110,13 @@ namespace ft_linear_regression_form
             graphicsObj.DrawLine(linePen,
                 0, Height - (int)(A * heightDelta),
                 (int) (array[array.Length - 1].km * widthDelta), Height - (int)(Fun(array[array.Length - 1].km) * heightDelta));
-            graphicsObj.DrawString($"y = {A.ToString("F2")} + {B.ToString("F2")} * x", myFont, myBrush, 30, Height - 80);
+            graphicsObj.DrawString($"y = {A:F4} + {B:F4} * x", myFont, myBrush, 30, Height - 80);
             string strong;
             if (0.7 <= r && r <= 1) strong = "strong correlation";
             else if (0.4 < r && r <= 0.7) strong = "moderate correlation";
             else if (0.2 < r && r <= 0.4) strong = "weak correlation";
             else strong = "no correlation";
-            graphicsObj.DrawString($"r = {r.ToString("F2")} {strong}", myFont, myBrush, 30, Height - (80 + (int)(Width / 40.0) + 3));
+            graphicsObj.DrawString($"r = {r:F2} {strong}", myFont, myBrush, 30, Height - (80 + (int)(Width / 40.0) + 3));
         }
 
         double Fun(int x)
