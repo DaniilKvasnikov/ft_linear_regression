@@ -72,7 +72,7 @@ namespace ft_linear_regression_form
             }
             B = sxy / sxx;
             A = yMid - B * xMid;
-            r = sxy / Math.Sqrt(sxx * syy);
+            r = Math.Abs(sxy / (Math.Sqrt(sxx) * Math.Sqrt(syy)));
         }
 
         private void Init_Form()
@@ -83,7 +83,7 @@ namespace ft_linear_regression_form
             for (var i = 0; i < array.Length; i++)
             {
                 arrayPoints[i].X = (int) (array[i].km * widthDelta);
-                arrayPoints[i].Y = (int) (array[i].price * heightDelta);
+                arrayPoints[i].Y = Height - (int) (array[i].price * heightDelta);
             }
         }
 
@@ -107,15 +107,16 @@ namespace ft_linear_regression_form
             myFont = new Font("Helvetica", (int)(Width / 40.0), FontStyle.Italic);
             graphicsObj.Clear(Color.White);
             graphicsObj.DrawLines(graphPen, arrayPoints);
-            graphicsObj.DrawLine(linePen, 0, (int)(A * heightDelta), (int) (array[array.Length - 1].km * widthDelta), (int)
-                (Fun(array[array.Length - 1].km) * heightDelta));
-            graphicsObj.DrawString($"y = {A} + {B} * x", myFont, myBrush, 30, 30);
+            graphicsObj.DrawLine(linePen,
+                0, Height - (int)(A * heightDelta),
+                (int) (array[array.Length - 1].km * widthDelta), Height - (int)(Fun(array[array.Length - 1].km) * heightDelta));
+            graphicsObj.DrawString($"y = {A.ToString("F2")} + {B.ToString("F2")} * x", myFont, myBrush, 30, Height - 80);
             string strong;
             if (0.7 <= r && r <= 1) strong = "strong correlation";
             else if (0.4 < r && r <= 0.7) strong = "moderate correlation";
             else if (0.2 < r && r <= 0.4) strong = "weak correlation";
             else strong = "no correlation";
-            graphicsObj.DrawString($"r = {r} {strong}", myFont, myBrush, 30, 30 + (int)(Width / 40.0));
+            graphicsObj.DrawString($"r = {r.ToString("F2")} {strong}", myFont, myBrush, 30, Height - (80 + (int)(Width / 40.0) + 3));
         }
 
         double Fun(int x)
