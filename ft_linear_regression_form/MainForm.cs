@@ -12,6 +12,12 @@ namespace ft_linear_regression_form
         public MainForm()
         {
             InitializeComponent();
+            Paint += FormPaint;
+        }
+
+        private void FormPaint(object sender, PaintEventArgs e)
+        {
+            currentFile.Text = dataPath;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -23,19 +29,18 @@ namespace ft_linear_regression_form
         private void button3_Click(object sender, EventArgs e)
         {
             var fileContent = string.Empty;
-            var filePath = string.Empty;
 
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.InitialDirectory = ".";
-                openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
-                openFileDialog.FilterIndex = 2;
+                openFileDialog.Filter = "csv files (*.csv)|*.csv|All files (*.*)|*.*";
+                openFileDialog.FilterIndex = 0;
                 openFileDialog.RestoreDirectory = true;
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     //Get the path of specified file
-                    filePath = openFileDialog.FileName;
+                    dataPath = openFileDialog.FileName;
 
                     //Read the contents of the file into a stream
                     var fileStream = openFileDialog.OpenFile();
@@ -46,8 +51,7 @@ namespace ft_linear_regression_form
                     }
                 }
             }
-
-            MessageBox.Show(fileContent, "File Content at path: " + filePath, MessageBoxButtons.OK);
+            MessageBox.Show(fileContent, "File Content at path: " + dataPath, MessageBoxButtons.OK);
         }
     }
 }

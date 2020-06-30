@@ -2,7 +2,7 @@
 {
     public class Data
     {
-        public int km { get; set; }
-        public int price { get; set; }
+        public double km { get; set; }
+        public double price { get; set; }
     }
 }
