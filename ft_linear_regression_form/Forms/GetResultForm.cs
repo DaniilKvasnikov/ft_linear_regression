@@ -16,7 +16,10 @@ namespace ft_linear_regression_form.Forms
         private void regressorInput_TextChanged(object sender, System.EventArgs e)
         {
             if (!float.TryParse(regressorInput.Text, out float regressor))
+            {
                 ShowError($"Cannot convert {regressorInput.Text}");
+                return;
+            }
             var result = GetResult(regressor);
             labelPrediction.Text = result.ToString();
         }

@@ -109,16 +109,15 @@ namespace ft_linear_regression_form.Forms
             this.Text = "GetResultForm";
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
-        #endregion
-
-        private System.Windows.Forms.TextBox regressorInput;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label labelFunction;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label labelFunction;
         private System.Windows.Forms.Label labelPrediction;
+        private System.Windows.Forms.TextBox regressorInput;
+
+        #endregion
     }
 }
