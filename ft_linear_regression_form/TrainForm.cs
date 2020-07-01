@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -9,13 +8,12 @@ using CsvHelper;
 
 namespace ft_linear_regression_form
 {
-    
     public partial class TrainForm : Form
     {
-        private Data[] array;
+        private readonly Data[] array;
         private string fileName;
-        private (double theta0, double theta1) results;
-        
+        private readonly (double theta0, double theta1) results;
+
         public TrainForm(string dataPath, ITrainer trainer)
         {
             InitializeComponent();
@@ -54,23 +52,20 @@ namespace ft_linear_regression_form
                 throw;
             }
         }
-        
+
         private void ViewOnChart(Chart chart)
         {
             chart.Series.Clear();
-            
-            Series seriesArray = chart.Series.Add(fileName);
+
+            var seriesArray = chart.Series.Add(fileName);
             seriesArray.ChartType = SeriesChartType.Point;
-            foreach (var data in array)
-            {
-                seriesArray.Points.AddXY(data.km, data.price);
-            }
-            
-            Series seriesFunDop = chart.Series.Add("Result");
+            foreach (var data in array) seriesArray.Points.AddXY(data.km, data.price);
+
+            var seriesFunDop = chart.Series.Add("Result");
             seriesFunDop.ChartType = SeriesChartType.Line;
-            seriesFunDop.Points.AddXY(0,  results.theta0);
+            seriesFunDop.Points.AddXY(0, results.theta0);
             var x = array[array.Length - 1].km;
-            var y = (results.theta0 + results.theta1 * x);
+            var y = results.theta0 + results.theta1 * x;
             seriesFunDop.Points.AddXY(x, y);
         }
     }

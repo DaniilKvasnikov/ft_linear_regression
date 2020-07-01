@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
@@ -30,7 +29,7 @@ namespace ft_linear_regression_form
         {
             var fileContent = string.Empty;
 
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            using (var openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.InitialDirectory = ".";
                 openFileDialog.Filter = "csv files (*.csv)|*.csv|All files (*.*)|*.*";
@@ -45,12 +44,13 @@ namespace ft_linear_regression_form
                     //Read the contents of the file into a stream
                     var fileStream = openFileDialog.OpenFile();
 
-                    using (StreamReader reader = new StreamReader(fileStream))
+                    using (var reader = new StreamReader(fileStream))
                     {
                         fileContent = reader.ReadToEnd();
                     }
                 }
             }
+
             MessageBox.Show(fileContent, "File Content at path: " + dataPath, MessageBoxButtons.OK);
         }
     }
