@@ -22,7 +22,7 @@ namespace ft_linear_regression_form
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var form = new TrainForm(dataPath);
+            var form = new TrainForm(dataPath, new TrainerStandart());
             form.Show();
         }
 
