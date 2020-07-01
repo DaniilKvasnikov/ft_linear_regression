@@ -27,6 +27,11 @@ namespace ft_linear_regression_form
             OpenForm(new TrainForm(dataPath, new TrainerStandart(), out result));
         }
 
+        private void button4_Click(object sender, EventArgs e)
+        {
+            OpenForm(new TrainForm(dataPath, new TrainerCalculator(), out result));
+        }
+
         private void button2_Click(object sender, EventArgs e)
         {
             OpenForm(new GetResultForm(result));
@@ -56,11 +61,9 @@ namespace ft_linear_regression_form
                 openFileDialog.FilterIndex = 0;
                 openFileDialog.RestoreDirectory = true;
 
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    dataPath = openFileDialog.FileName;
-                }
+                if (openFileDialog.ShowDialog() == DialogResult.OK) dataPath = openFileDialog.FileName;
             }
+
             openForm = false;
         }
     }

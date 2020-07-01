@@ -4,9 +4,8 @@ namespace ft_linear_regression_form
 {
     public class TrainerStandart : ITrainer
     {
-        private double learningrate = 0.1;
-        
         private Data[] arrayNormalizedData;
+        private readonly double learningrate = 0.1;
         private double maxKm;
         private double maxPrice;
 
