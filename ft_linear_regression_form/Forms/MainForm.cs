@@ -1,12 +1,15 @@
 ﻿using System;
-using System.IO;
+using System.ComponentModel;
 using System.Windows.Forms;
+using ft_linear_regression_form.Forms;
 
 namespace ft_linear_regression_form
 {
     public partial class MainForm : Form
     {
-        public string dataPath = "./InuptFiles/data.csv";
+        private string dataPath = "./InuptFiles/data.csv";
+        private bool openForm;
+        private (double, double) result;
 
         public MainForm()
         {
@@ -21,14 +24,31 @@ namespace ft_linear_regression_form
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var form = new TrainForm(dataPath, new TrainerStandart());
+            OpenForm(new TrainForm(dataPath, new TrainerStandart(), out result));
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            OpenForm(new GetResultForm(result));
+        }
+
+        private void OpenForm(Form form)
+        {
+            if (openForm) return;
+            openForm = true;
             form.Show();
+            form.Closing += ClosingForm;
+        }
+
+        private void ClosingForm(object sender, CancelEventArgs e)
+        {
+            openForm = false;
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            var fileContent = string.Empty;
-
+            if (openForm) return;
+            openForm = true;
             using (var openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.InitialDirectory = ".";
@@ -38,20 +58,10 @@ namespace ft_linear_regression_form
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    //Get the path of specified file
                     dataPath = openFileDialog.FileName;
-
-                    //Read the contents of the file into a stream
-                    var fileStream = openFileDialog.OpenFile();
-
-                    using (var reader = new StreamReader(fileStream))
-                    {
-                        fileContent = reader.ReadToEnd();
-                    }
                 }
             }
-
-            MessageBox.Show(fileContent, "File Content at path: " + dataPath, MessageBoxButtons.OK);
+            openForm = false;
         }
     }
 }

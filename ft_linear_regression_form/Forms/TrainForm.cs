@@ -14,7 +14,7 @@ namespace ft_linear_regression_form
         private string fileName;
         private readonly (double theta0, double theta1) results;
 
-        public TrainForm(string dataPath, ITrainer trainer)
+        public TrainForm(string dataPath, ITrainer trainer, out (double theta0, double theta1) result)
         {
             InitializeComponent();
             richTextBox1.Visible = false;
@@ -25,6 +25,7 @@ namespace ft_linear_regression_form
                 if (array.Length == 0)
                     throw new Exception("No elements in array");
                 results = trainer.GetResult(array);
+                result = results;
                 ViewOnChart(chart1);
             }
             catch (Exception e)
