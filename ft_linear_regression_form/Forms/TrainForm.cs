@@ -31,8 +31,8 @@ namespace ft_linear_regression_form
             catch (Exception e)
             {
                 richTextBox1.Visible = true;
-                richTextBox1.Text = e.ToString();
-                throw;
+                richTextBox1.Text = e.Message;
+                result = (0, 0);
             }
         }
 

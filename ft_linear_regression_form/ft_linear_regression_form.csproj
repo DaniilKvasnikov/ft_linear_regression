@@ -100,6 +100,9 @@
     <Compile Include="Trainers\ITrainer.cs" />
     <Compile Include="Trainers\TrainerCalculator.cs" />
     <Compile Include="Trainers\TrainerStandart.cs" />
+    <EmbeddedResource Include="Forms\GetResultForm.resx">
+      <DependentUpon>GetResultForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
