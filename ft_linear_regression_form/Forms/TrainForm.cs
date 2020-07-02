@@ -54,6 +54,8 @@ namespace ft_linear_regression_form
         {
             chart.Series.Clear();
 
+            chart.ChartAreas["ChartArea1"].AxisX.Title = "Km";
+            chart.ChartAreas["ChartArea1"].AxisY.Title = "Price";
             var seriesArray = chart.Series.Add(dataPath);
             seriesArray.ChartType = SeriesChartType.Point;
             foreach (var data in array) seriesArray.Points.AddXY(data.km, data.price);
@@ -67,6 +69,8 @@ namespace ft_linear_regression_form
             var seriesB = chart.Series.Add($"theta1 = {results.theta1:F2}");
 
             chart2.Series.Clear();
+            chart2.ChartAreas["ChartArea1"].AxisX.Title = "Theta1";
+            chart2.ChartAreas["ChartArea1"].AxisY.Title = "Theta0";
             var seriesArrayTheta0 = chart2.Series.Add("Theta");
             seriesArrayTheta0.ChartType = SeriesChartType.Point;
             foreach (var data in thetasHistory)
