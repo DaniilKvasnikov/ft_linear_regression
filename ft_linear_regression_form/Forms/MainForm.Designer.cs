@@ -43,7 +43,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(316, 41);
             this.button1.TabIndex = 1;
-            this.button1.Text = "Train";
+            this.button1.Text = "Gradient descent";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -81,7 +81,7 @@
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(294, 41);
             this.button4.TabIndex = 5;
-            this.button4.Text = "TrainBonus";
+            this.button4.Text = "Line of best fit";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -100,6 +100,7 @@
             this.Name = "MainForm";
             this.Text = "Form1";
             this.ResumeLayout(false);
+
         }
 
         private System.Windows.Forms.Button button1;

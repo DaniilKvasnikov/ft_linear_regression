@@ -10,6 +10,8 @@ namespace ft_linear_regression_form
 {
     public partial class TrainForm : Form
     {
+        (double, double)[] thetasHistory;
+
         public TrainForm(string dataPath, ITrainer trainer, out (double theta0, double theta1) result)
         {
             InitializeComponent();
@@ -21,6 +23,7 @@ namespace ft_linear_regression_form
                 var array = ReadFile(dataPath);
                 if (array.Length == 0) throw new Exception("No elements in array");
                 result = trainer.GetResult(array);
+                thetasHistory = trainer.GetThetasHistory();
                 ViewOnChart(array, result, dataPath, chart1);
             }
             catch (Exception e)
@@ -62,6 +65,12 @@ namespace ft_linear_regression_form
                 results.theta0 + results.theta1 * array[array.Length - 1].km);
             var seriesA = chart.Series.Add($"theta0 = {results.theta0:F2}");
             var seriesB = chart.Series.Add($"theta1 = {results.theta1:F2}");
+
+            chart2.Series.Clear();
+            var seriesArrayTheta0 = chart2.Series.Add("Theta");
+            seriesArrayTheta0.ChartType = SeriesChartType.Point;
+            foreach (var data in thetasHistory)
+                seriesArrayTheta0.Points.AddXY(data.Item2, data.Item1);
         }
     }
 }

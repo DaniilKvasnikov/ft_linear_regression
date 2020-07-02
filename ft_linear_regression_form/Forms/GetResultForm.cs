@@ -33,6 +33,7 @@ namespace ft_linear_regression_form.Forms
 
         private void ShowError(string error)
         {
+            labelPrediction.Text = error;
         }
     }
 }

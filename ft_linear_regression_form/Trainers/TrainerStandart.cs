@@ -1,11 +1,15 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace ft_linear_regression_form
 {
     public class TrainerStandart : ITrainer
     {
+        private double learningrate = 0.1;
+        private int iterrationsCount = 1000;
+
         private Data[] arrayNormalizedData;
-        private readonly double learningrate = 0.1;
+        private List<(double,double)> thetasHistory;
         private double maxKm;
         private double maxPrice;
 
@@ -14,7 +18,8 @@ namespace ft_linear_regression_form
             maxKm = dataArray.Max(e => e.km);
             maxPrice = dataArray.Max(e => e.price);
             arrayNormalizedData = normalized_data(dataArray);
-            var normResult = GradientTrain(1000);
+            thetasHistory = new List<(double, double)>();
+            var normResult = GradientTrain(iterrationsCount);
             var A = normResult.Item1 * maxPrice;
             var B = normResult.Item2 * (maxPrice / maxKm);
             return (A, B);
@@ -23,7 +28,12 @@ namespace ft_linear_regression_form
         private (double, double) GradientTrain(int iterrations)
         {
             var dthetas = (0.0, 0.0);
-            for (var i = 0; i < iterrations; i++) dthetas = NewThetas(dthetas);
+            thetasHistory.Add(dthetas);
+            for (var i = 0; i < iterrations; i++)
+            {
+                dthetas = NewThetas(dthetas);
+                thetasHistory.Add(dthetas);
+            }
 
             return dthetas;
         }
@@ -58,6 +68,11 @@ namespace ft_linear_regression_form
             for (var i = 0; i < array.Length; i++)
                 new_arr_data[i] = new Data(array[i].km / maxKm, array[i].price / maxPrice);
             return new_arr_data;
+        }
+
+        public (double, double)[] GetThetasHistory()
+        {
+            return thetasHistory.ToArray();
         }
     }
 }

@@ -4,6 +4,7 @@ namespace ft_linear_regression_form
 {
     public class TrainerCalculator : ITrainer
     {
+        (double, double)[] thetasHistory;
         public (double, double) GetResult(Data[] dataArray)
         {
             var xMid = dataArray.Sum(e => e.km) / dataArray.Length;
@@ -13,7 +14,13 @@ namespace ft_linear_regression_form
             var sxy = dataArray.Sum(e => (e.km - xMid) * (e.price - yMid));
             var B = sxy / sxx;
             var A = yMid - B * xMid;
+            thetasHistory = new (double, double)[] { (A, B) };
             return (A, B);
+        }
+
+        public (double, double)[] GetThetasHistory()
+        {
+            return thetasHistory;
         }
     }
 }
